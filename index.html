@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clusters — Managed Marketplace for Distributed Foyers</title>
+<meta name="description" content="Clusters assembles a logical foyer from separate physical facilities — shelter, hygiene, work, storage — sold individually, at functional grade.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #F1ECE1;
+    --ink: #1D1B17;
+    --ink-soft: #57534A;
+    --ink-faint: #928C7B;
+    --line: #D9D1BE;
+    --accent: #33505D;
+    --on-accent: #F1ECE1;
+    --card-bg: #F8F4E9;
+    --btn-primary-bg: #1D1B17;
+    --btn-primary-ink: #F1ECE1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #16181A;
+      --ink: #EAE6D8;
+      --ink-soft: #B0AB99;
+      --ink-faint: #746F5F;
+      --line: #33352E;
+      --accent: #8FB2BA;
+      --on-accent: #10171A;
+      --card-bg: #1D2023;
+      --btn-primary-bg: #EAE6D8;
+      --btn-primary-ink: #16181A;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #16181A;
+    --ink: #EAE6D8;
+    --ink-soft: #B0AB99;
+    --ink-faint: #746F5F;
+    --line: #33352E;
+    --accent: #8FB2BA;
+    --on-accent: #10171A;
+    --card-bg: #1D2023;
+    --btn-primary-bg: #EAE6D8;
+    --btn-primary-ink: #16181A;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ color-scheme: light dark; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; text-decoration: none; }
+  .mono{ font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+
+  .shell{ max-width: 860px; margin: 0 auto; padding: 0 28px; }
+
+  /* header */
+  header{ border-bottom: 1px solid var(--line); }
+  .header-row{
+    max-width: 860px; margin: 0 auto; padding: 20px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  }
+  .wordmark{
+    font-family: "Fraunces", serif; font-weight: 700; font-size: 21px; letter-spacing: 0.01em;
+  }
+  nav.links{ display: flex; gap: 26px; }
+  nav.links a{
+    font-family: "IBM Plex Mono", monospace; font-size: 12.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-soft);
+  }
+  nav.links a:hover{ color: var(--accent); }
+  .nav-cta{
+    font-family: "IBM Plex Mono", monospace; font-size: 12.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px;
+    white-space: nowrap;
+  }
+
+  /* hero */
+  .hero{ padding: 56px 0 48px; }
+  .brand-banner{
+    display: flex; align-items: center; gap: 12px; margin: 0 0 34px;
+  }
+  .brand-banner .mark{ flex: none; }
+  .brand-banner .name{
+    font-family: "Fraunces", serif; font-weight: 700; font-size: 64px; line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .eyebrow{
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent); margin: 0 0 18px;
+  }
+  h1{
+    font-family: "Fraunces", serif; font-weight: 600; font-style: italic; font-size: 34px; line-height: 1.28;
+    letter-spacing: 0; margin: 0 0 22px; text-wrap: balance; max-width: 18ch;
+  }
+  .hero p.lede{
+    max-width: 56ch; color: var(--ink-soft); font-size: 18px; margin: 0 0 22px;
+  }
+  .pill{
+    display: inline-flex; align-items: center; font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 999px; padding: 5px 13px; margin-bottom: 30px;
+  }
+  .cta-row{ display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn{
+    font-family: "IBM Plex Mono", monospace; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 0.05em; padding: 13px 22px; border-radius: 2px; display: inline-block;
+    border: 1px solid var(--ink);
+  }
+  .btn-primary{ background: var(--btn-primary-bg); color: var(--btn-primary-ink); border-color: var(--btn-primary-bg); }
+  .btn-secondary{ background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-secondary:hover{ border-color: var(--accent); color: var(--accent); }
+
+  /* sections */
+  section{ padding: 46px 0; border-top: 1px solid var(--line); }
+  h2{
+    font-family: "Fraunces", serif; font-weight: 700; font-size: 27px; line-height: 1.25;
+    margin: 0 0 16px; text-wrap: balance; max-width: 20ch;
+  }
+  section > .shell > p.intro{ max-width: 58ch; color: var(--ink-soft); margin: 0 0 30px; }
+
+  /* three-up cards */
+  .cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card{
+    background: var(--card-bg); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    padding: 20px 18px; border-radius: 2px;
+  }
+  .card .term{
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--accent); margin: 0 0 10px;
+  }
+  .card p{ margin: 0; color: var(--ink); font-size: 15.5px; }
+
+  /* utility rows */
+  .rows{ border-top: 1px solid var(--line); }
+  .row{
+    display: grid; grid-template-columns: 140px 1fr; gap: 18px; padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .row .term{
+    font-family: "IBM Plex Mono", monospace; font-size: 12.5px; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--ink-faint); padding-top: 2px;
+  }
+  .row p{ margin: 0; color: var(--ink-soft); }
+
+  /* naming */
+  .naming p{ max-width: 58ch; margin: 0; color: var(--ink); }
+
+  /* operators */
+  .operators .shell{ display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
+  .operators .copy{ max-width: 46ch; }
+  .operators p{ color: var(--ink-soft); margin: 0; }
+
+  /* footer */
+  footer{ border-top: 1px solid var(--line); padding: 26px 0 44px; }
+  .foot-stamp{
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink-faint);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
+  }
+  .foot-tag{
+    font-family: "IBM Plex Mono", monospace; font-size: 12.5px; letter-spacing: 0.04em;
+    color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px;
+  }
+
+  @media (max-width: 640px){
+    .brand-banner .name{ font-size: 44px; }
+    h1{ font-size: 26px; max-width: none; }
+    .cards{ grid-template-columns: 1fr; }
+    .row{ grid-template-columns: 1fr; gap: 4px; }
+    .operators .shell{ align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="wordmark">Clusters</div>
+    <nav class="links">
+      <a href="#functions">Facilities</a>
+      <a href="#naming">Naming</a>
+      <a href="#operators">Operators</a>
+    </nav>
+    <a class="nav-cta" href="#access">Get early access →</a>
+  </div>
+</header>
+
+<div class="hero shell">
+  <div class="brand-banner">
+    <svg class="mark" width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+      <circle cx="23" cy="14" r="6" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      <circle cx="13" cy="30" r="6" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      <circle cx="33" cy="30" r="6" fill="var(--accent)"/>
+    </svg>
+    <div class="name">Clusters</div>
+  </div>
+  <h1>Distributed foyers for people who need functions, not luxury.</h1>
+  <p class="lede">Shelter, showers, workspaces, storage — assembled into one foyer, each billed on its own. No lease on the whole room just to get a shower and a bed.</p>
+  <div><span class="pill">Billed per function</span></div>
+  <div class="cta-row" id="access">
+    <a class="btn btn-primary" href="#">Get early access</a>
+    <a class="btn btn-secondary" href="#operators">List a facility</a>
+  </div>
+</div>
+
+<section id="functions">
+  <div class="shell">
+    <p class="eyebrow">What's assembled</p>
+    <h2>Not a room. A foyer built from three separate functions.</h2>
+    <p class="intro">No hierarchy between them — take the shelter alone, add utilities as needed, or start from a cluster that already has both, close together.</p>
+    <div class="cards">
+      <div class="card">
+        <p class="term">Shelter</p>
+        <p>The base function. A roof.</p>
+      </div>
+      <div class="card">
+        <p class="term">Utilities</p>
+        <p>The secondary functions: hygiene, work, storage.</p>
+      </div>
+      <div class="card">
+        <p class="term">Clustered facilities</p>
+        <p>Facilities grouped within reach of one another — 300 m to 1 km — forming a cluster of services.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <p class="eyebrow">Utilities, in detail</p>
+    <h2>Three functions, booked apart.</h2>
+    <p class="intro">Utilities aren't one service — they're three, and each is billed on its own.</p>
+    <div class="rows">
+      <div class="row"><div class="term">Hygiene</div><p>A shower.</p></div>
+      <div class="row"><div class="term">Work</div><p>A desk.</p></div>
+      <div class="row"><div class="term">Storage</div><p>A locker.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="naming" class="naming">
+  <div class="shell">
+    <p class="eyebrow">Naming</p>
+    <h2>Why "Clusters"</h2>
+    <p>A cluster, most literally, is a bunch of grapes — separate units, held close together. Not amenities: no pool, no coworking lounge. Modest heating, simple showers, functional grade from day one.</p>
+  </div>
+</section>
+
+<section id="operators" class="operators">
+  <div class="shell">
+    <div class="copy">
+      <p class="eyebrow">For operators</p>
+      <h2>List a function, not a listing.</h2>
+      <p>Clusters certifies operators; operators provide functional facilities. Admission passes review — the standard is functional grade, not luxury.</p>
+    </div>
+    <a class="btn btn-primary" href="#">List a facility</a>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <div class="foot-stamp">
+      <span>Clusters — draft v1</span>
+      <span>Vocabulary locked 08.09.2026</span>
+      <span>Concept landing page — not a live product</span>
+    </div>
+    <div class="foot-tag">CLUSTERS — MANAGED MARKETPLACE FOR DISTRIBUTED FOYERS.</div>
+  </div>
+</footer>
+
+</body>
+</html>
