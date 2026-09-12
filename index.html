@@ -21,6 +21,8 @@
     --card-bg: #F8F4E9;
     --btn-primary-bg: #1D1B17;
     --btn-primary-ink: #F1ECE1;
+    --optional: #9C6B2E;
+    --feature: #7A3B3E;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
@@ -34,6 +36,8 @@
       --card-bg: #1D2023;
       --btn-primary-bg: #EAE6D8;
       --btn-primary-ink: #16181A;
+      --optional: #D9A85C;
+      --feature: #D9908F;
     }
   }
   :root[data-theme="dark"]{
@@ -47,6 +51,8 @@
     --card-bg: #1D2023;
     --btn-primary-bg: #EAE6D8;
     --btn-primary-ink: #16181A;
+    --optional: #D9A85C;
+    --feature: #D9908F;
   }
 
   *{ box-sizing: border-box; }
@@ -150,6 +156,71 @@
   }
   .row p{ margin: 0; color: var(--ink-soft); }
 
+  /* storage escale — layer breakdown (draft) */
+  .draft-tag{
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-faint); border: 1px dashed var(--line);
+    padding: 2px 8px; border-radius: 20px; margin-left: 10px; white-space: nowrap;
+  }
+  .layers{ display: flex; flex-direction: column; gap: 14px; }
+  .layer{
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 2px;
+    padding: 20px 22px;
+  }
+  .layer-head{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0 0 8px; }
+  .layer-head .layer-title{
+    font-family: "IBM Plex Mono", monospace; font-size: 12.5px; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--accent);
+  }
+  .layer-head .layer-tag{
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-faint);
+    border: 1px solid var(--line); padding: 2px 8px; border-radius: 20px;
+  }
+  .layer p.desc{ margin: 0 0 12px; color: var(--ink-soft); font-size: 15px; max-width: 62ch; }
+  .modules{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+
+  /* workescale — four registers as a balanced 2x2 grid of blocks, each block 2 tiles wide */
+  .module-groups{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .module-groups .modules{ grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .module-groups .module{ padding: 13px 15px; }
+  .module{ background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 10px 12px; }
+  .module.optional{ border-style: dashed; border-color: var(--optional); }
+  .module.shared{ border-style: dashed; border-color: var(--accent); }
+  .module.feature{ border-style: solid; border-color: var(--feature); }
+  .module.variant{ border-style: dashed; border-color: var(--ink-faint); }
+  .module .name{
+    font-family: "IBM Plex Mono", monospace; font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.03em; color: var(--ink); margin: 0 0 4px;
+  }
+  .module.optional .name{ color: var(--optional); }
+  .module.shared .name{ color: var(--accent); }
+  .module.feature .name{ color: var(--feature); }
+  .module.variant .name{ color: var(--ink-faint); }
+  .module p{ margin: 0; font-size: 13px; color: var(--ink-soft); }
+  .module .open{ color: var(--accent); font-style: italic; }
+
+  /* workescale, kitchen escale — infrastructure trio goes solid (given, not a choice); desks/site-dependent items go dashed */
+  #workescale-detail .module.shared, #kitchen-detail .module.shared{ border-style: solid; }
+
+  #storage-detail h2, #workescale-detail h2, #kitchen-detail h2{ max-width: 60ch; font-size: 23px; }
+  #storage-detail h2 .escale-name, #workescale-detail h2 .escale-name, #kitchen-detail h2 .escale-name{
+    font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--accent); margin-right: 10px;
+  }
+  .legend{
+    display: flex; gap: 18px; flex-wrap: wrap; margin: 14px 0 20px;
+    font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-faint);
+  }
+  .legend .dot{
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px;
+    vertical-align: middle;
+  }
+  .legend .dot-shared{ background: var(--accent); }
+  .legend .dot-individual{ background: var(--ink-faint); }
+  .legend .dot-optional{ background: var(--optional); }
+  .legend .dot-feature{ background: var(--feature); }
+  .legend .dot-variant{ background: var(--ink-faint); }
+
   /* naming */
   .naming p{ max-width: 58ch; margin: 0; color: var(--ink); }
 
@@ -175,6 +246,7 @@
     .cards{ grid-template-columns: 1fr; }
     .row{ grid-template-columns: 1fr; gap: 4px; }
     .operators .shell{ align-items: flex-start; }
+    .module-groups{ grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -243,11 +315,83 @@
   <div class="shell">
     <p class="eyebrow">The three escales</p>
     <h2>Waypoints, not amenities.</h2>
-    <p class="intro">An escale is a stop along the way — warm, comforting, hybrid: always a table, a chair, a sofa you can stretch out on. What you do there depends which one it is. Never overnight — that part stays with the vital anchor.</p>
-    <div class="rows">
-      <div class="row"><div class="term">Workescale</div><p>A desk, a chair, a sofa. Secure enough to plug in a laptop and leave it — warm, quiet, no need to justify being there. Napping is fine; staying the night isn't.</p></div>
-      <div class="row"><div class="term">Storage escale</div><p>More than a locker: real shelving, somewhere to hang wet clothes to dry, a table, a sofa to lie down on for an hour or two. Change, dry off, leave your things — what you can't do is stay the night.</p></div>
-      <div class="row"><div class="term">Resupply escale</div><p>A fridge, a freezer, somewhere to cook and do the dishes. Sit, eat, digest, watch something. Warm enough to want to stay a while before heading back — just not to lie down.</p></div>
+    <p class="intro">An escale is a stop along the way — warm, comforting, hybrid: always a table, a chair, a sofa you can stretch out on. What you do there depends which one it is. Never overnight — that part stays with the vital anchor. Three escales — work, storage, kitchen — each broken down below.</p>
+  </div>
+</section>
+
+<section id="storage-detail">
+  <div class="shell">
+    <h2><span class="escale-name">Storage Escale</span>Box + Vestiaire logistique<span class="draft-tag">Draft — not final copy</span></h2>
+    <p class="legend"><span class="dot dot-shared"></span>Shared area<span class="dot dot-individual"></span>Your storage escale<span class="dot dot-optional"></span>Optional</p>
+    <div class="layer">
+      <div class="modules">
+        <div class="module shared"><p class="name">Waterpoint</p><p>Clean, shared. Fill a bottle or canister.</p></div>
+        <div class="module shared"><p class="name">Toilet access</p><p>Mutualized — at least one, by default.</p></div>
+        <div class="module shared"><p class="name">Common outlet</p><p>At least one — charge a phone, plug in what you need.</p></div>
+        <div class="module shared"><p class="name">Utility desk</p><p>Work, eat, arrange, clean, refill.</p></div>
+        <div class="module"><p class="name">Utility desk</p><p>Inside your storage escale — your own table, your own chair, sort your bags.</p></div>
+        <div class="module"><p class="name">Hang bay</p><p>A rail to hang clothes, room to dry them, a shelf to fold and stow.</p></div>
+        <div class="module"><p class="name">Shelf bay</p><p>At least ten shelf levels — one tall unit, or two smaller ones.</p></div>
+        <div class="module"><p class="name">Snug bay</p><p>A sofa you can sleep on, a small side table, a blanket provided.</p></div>
+        <div class="module optional"><p class="name">Power bay — optional</p><p>A plug, maybe a kettle — provider's choice.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="workescale-detail">
+  <div class="shell">
+    <h2><span class="escale-name">Work Escale</span>Coworking + Kitchen corner + Nap room<span class="draft-tag">Draft — not final copy</span></h2>
+    <p class="legend"><span class="dot dot-shared"></span>Shared infrastructure<span class="dot dot-feature"></span>Resourcing<span class="dot dot-variant"></span>Depends on the site<span class="dot dot-optional"></span>Optional / tolerated</p>
+    <div class="layer">
+      <div class="module-groups">
+        <div class="modules">
+          <div class="module shared"><p class="name">Toilet access</p><p>Mutualized — at least one, by default.</p></div>
+          <div class="module shared"><p class="name">Heating</p><p>Wood, gas, or solar — always on. No exceptions here.</p></div>
+        </div>
+        <div class="modules">
+          <div class="module variant"><p class="name">Shared desk</p><p>Sit anywhere, plug in, work.</p></div>
+          <div class="module variant"><p class="name">Dedicated desk</p><p>Your own post — secure enough to leave a laptop and walk away.</p></div>
+          <div class="module variant"><p class="name">Shared iMac</p><p>Use one when it's free — no reservation needed.</p></div>
+          <div class="module variant"><p class="name">Dedicated iMac</p><p>Rent your own — by the day, the week, the month, or your whole stay. Always available.</p></div>
+        </div>
+        <div class="modules">
+          <div class="module feature"><p class="name">Kitchen corner</p><p>Toaster oven and air fryer, the real core — steak, chicken, all of it, clean. Kettle, fridge too. Then toast, sandwich press, rice cooker…</p></div>
+          <div class="module feature"><p class="name">Eating corner</p><p>A place to sit and eat, screened off from the desks — not just where you cook.</p></div>
+          <div class="module feature"><p class="name">Snug</p><p>A sofa you can sleep on, guaranteed — ideally its own naproom, apart from the desks and the kitchen.</p></div>
+          <div class="module feature"><p class="name">Mail reception</p><p>Receive parcels from day one, before you even arrive — and some of your mail too, though not all of it. Requires a 3-month contract.</p></div>
+        </div>
+        <div class="modules">
+          <div class="module optional"><p class="name">Gas stove — tolerated</p><p>Bring your own, take it home again — nothing stored on site. Pasta or rice only, no frying. Camera-monitored.</p></div>
+          <div class="module optional"><p class="name">Printer — optional</p><p>Not guaranteed. Some sites have one.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kitchen-detail">
+  <div class="shell">
+    <h2><span class="escale-name">Kitchen Escale</span>Full kitchen + Dining lounge + Laundry<span class="draft-tag">Draft — not final copy</span></h2>
+    <p class="legend"><span class="dot dot-shared"></span>Shared infrastructure<span class="dot dot-feature"></span>Resourcing<span class="dot dot-variant"></span>Depends on the site<span class="dot dot-optional"></span>Optional / tolerated</p>
+    <div class="layer">
+      <div class="module-groups">
+        <div class="modules">
+          <div class="module shared"><p class="name">Toilet access</p><p>Mutualized — at least one, by default.</p></div>
+        </div>
+        <div class="modules">
+          <div class="module feature"><p class="name">Full kitchen</p><p>Fridge and freezer — your own freezer compartment, locked to you. At least three burners, wood, gas, or electric, enough for three or four people to cook side by side. Built to actually cook for the week.</p></div>
+          <div class="module feature"><p class="name">Dining lounge</p><p>Tables if you want them, or a sofa with a plate on your lap and the TV on — eating isn't just standing at a counter here.</p></div>
+          <div class="module feature"><p class="name">Laptop corner</p><p>A table for your laptop, an outlet within reach — work a little while dinner's on.</p></div>
+        </div>
+        <div class="modules">
+          <div class="module variant"><p class="name">Washing machine</p><p>A laundry corner, like in plenty of real kitchens — wash while your food cooks, two things done at once. A dryer too, sometimes. Depends on the site.</p></div>
+          <div class="module variant"><p class="name">Meal service — subscription</p><p>A cooked meal on subscription, if the site offers it — a real portion of protein, frozen and ready, from about €2 to €2.50 a plate.</p></div>
+        </div>
+        <div class="modules">
+          <div class="module optional"><p class="name">Heating — tolerated, not guaranteed</p><p>The cooking itself keeps the room warm. A wood stove is enough, if the site has one. Less strict here than at the Work Escale.</p></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -274,7 +418,7 @@
 <footer>
   <div class="shell">
     <div class="foot-stamp">
-      <span>Clusters — draft v4</span>
+      <span>Clusters — draft v14</span>
       <span>Vocabulary aligned to source corpus</span>
       <span>Concept landing page — not a live product</span>
     </div>
