@@ -11,36 +11,6 @@
 
 <style>
   :root{
-    --bg: #F1ECE1;
-    --ink: #1D1B17;
-    --ink-soft: #57534A;
-    --ink-faint: #928C7B;
-    --line: #D9D1BE;
-    --accent: #33505D;
-    --on-accent: #F1ECE1;
-    --card-bg: #F8F4E9;
-    --btn-primary-bg: #1D1B17;
-    --btn-primary-ink: #F1ECE1;
-    --optional: #9C6B2E;
-    --feature: #7A3B3E;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg: #16181A;
-      --ink: #EAE6D8;
-      --ink-soft: #B0AB99;
-      --ink-faint: #746F5F;
-      --line: #33352E;
-      --accent: #8FB2BA;
-      --on-accent: #10171A;
-      --card-bg: #1D2023;
-      --btn-primary-bg: #EAE6D8;
-      --btn-primary-ink: #16181A;
-      --optional: #D9A85C;
-      --feature: #D9908F;
-    }
-  }
-  :root[data-theme="dark"]{
     --bg: #16181A;
     --ink: #EAE6D8;
     --ink-soft: #B0AB99;
@@ -56,7 +26,7 @@
   }
 
   *{ box-sizing: border-box; }
-  html{ color-scheme: light dark; }
+  html{ color-scheme: dark; }
   body{
     margin:0;
     background: var(--bg);
@@ -418,7 +388,7 @@
 <footer>
   <div class="shell">
     <div class="foot-stamp">
-      <span>Clusters — draft v14</span>
+      <span>Clusters — draft v15</span>
       <span>Vocabulary aligned to source corpus</span>
       <span>Concept landing page — not a live product</span>
     </div>
