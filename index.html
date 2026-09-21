@@ -56,6 +56,13 @@
     letter-spacing: 0.06em; color: var(--ink-soft);
   }
   nav.links a:hover{ color: var(--accent); }
+  .nav-right{ display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+  .nav-ventures{ display: flex; gap: 16px; }
+  .nav-ventures a{
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-soft); opacity: 0.7;
+  }
+  .nav-ventures a:hover{ color: var(--accent); opacity: 1; }
   .nav-cta{
     font-family: "IBM Plex Mono", monospace; font-size: 12.5px; text-transform: uppercase;
     letter-spacing: 0.06em; color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px;
@@ -217,6 +224,7 @@
     .row{ grid-template-columns: 1fr; gap: 4px; }
     .operators .shell{ align-items: flex-start; }
     .module-groups{ grid-template-columns: 1fr; }
+    .nav-ventures{ display: none; }
   }
 </style>
 <!-- Matomo -->
@@ -240,12 +248,19 @@
 <header>
   <div class="header-row">
     <div class="wordmark">Clusters</div>
-    <nav class="links">
-      <a href="#pillars">How it works</a>
-      <a href="#naming">Naming</a>
-      <a href="#providers">Provide a service</a>
-    </nav>
-    <a class="nav-cta" href="#access">Get early access →</a>
+    <div class="nav-right">
+      <nav class="links">
+        <a href="#pillars">How it works</a>
+        <a href="#naming">Naming</a>
+        <a href="#providers">Provide a service</a>
+      </nav>
+      <span class="nav-ventures">
+        <a href="https://curb.exchange">Curb</a>
+        <a href="https://cohort.reviews">Cohort</a>
+        <a href="https://vetnups.com">Vetnups</a>
+      </span>
+      <a class="nav-cta" href="#access">Get early access →</a>
+    </div>
   </div>
 </header>
 
